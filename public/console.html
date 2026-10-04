@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>minilist 控制台</title>
+<link rel="icon" href="/__ml/favicon.svg">
+<link rel="stylesheet" href="/__ml/base.css">
+<link rel="stylesheet" href="/admin/console.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img class="logo" src="/__ml/logo.svg" alt="minilist">
+    <span>minilist</span>
+    <span class="ver" id="ver">v1.0.0</span>
+  </div>
+  <div class="topbar-right">
+    <span class="status-dot" id="statusDot"></span>
+    <span class="status-text" id="statusText">运行中</span>
+    <span class="who" id="who">未登录 · 只读</span>
+    <button class="btn ghost" id="btnTheme" type="button">浅色</button>
+    <button class="btn primary" id="btnLogin" type="button">登录</button>
+    <button class="btn ghost" id="btnLogout" type="button" hidden>退出登录</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="notice readonly" id="readonlyBar">
+    <span aria-hidden="true">▣</span>
+    <div>
+      <b>当前是只读模式</b><br>
+      未登录的访问者可以浏览文件列表、预览和下载。上传、修改、删除、投放、改设置等操作需要先登录。
+    </div>
+  </div>
+
+  <div class="notice warn" id="firstRun" hidden>
+    <span aria-hidden="true">▲</span>
+    <div>
+      <b>还在使用默认密码</b><br>
+      默认账号是 <code class="mono">admin</code>，密码是 <code class="mono">admin</code>。因为服务会暴露到局域网，请立刻在下面的「账号」卡片里修改密码。
+    </div>
+  </div>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2>投放 HTML 到局域网端口</h2>
+        <div class="sub">选择一个 HTML 文件（或含有 index.html 的网站文件夹），局域网里的任何设备打开下面的地址就能看到它。同目录下的 css / js / 图片也会一起被提供。</div>
+      </div>
+      <span class="badge off" id="pubBadge">未投放</span>
+    </div>
+
+    <div class="grid2">
+      <div class="kv">
+        <div class="k">当前投放</div>
+        <div class="v" id="pubLabel">—</div>
+      </div>
+      <div class="kv">
+        <div class="k">所在目录（只读提供此目录）</div>
+        <div class="v mono" id="pubRoot">—</div>
+      </div>
+    </div>
+
+    <div class="url-list" id="pubUrls"></div>
+
+    <div class="btn-row">
+      <button class="btn primary write-only" id="btnPickHtml" type="button">选择 HTML 文件…</button>
+      <button class="btn write-only" id="btnPickSite" type="button">选择网站文件夹…</button>
+      <button class="btn write-only" id="btnUploadHtml" type="button">上传 HTML 文件…</button>
+      <button class="btn danger write-only" id="btnClearPublish" type="button">停止投放</button>
+    </div>
+
+    <div class="hint">
+      「选择文件 / 选择文件夹」会在运行 minilist 的这台电脑上弹出系统选择框。
+      如果你是在别的设备（手机、另一台电脑）上打开这个控制台，请改用「上传 HTML 文件」。
+    </div>
+
+    <div class="inline-form" style="margin-top:14px">
+      <div class="field grow">
+        <label for="pubPath">也可以用绝对路径直接投放</label>
+        <input type="text" id="pubPath" class="write-only" placeholder="D:\site\index.html  或  D:\site">
+      </div>
+      <button class="btn write-only" id="btnPublishPath" type="button">投放这个路径</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2>展示指定文件夹的文件</h2>
+        <div class="sub">把这个文件夹里的内容做成网页列表，支持在线预览、下载、上传、编辑、重命名、删除。</div>
+      </div>
+      <span class="badge off" id="shareBadge">未设置</span>
+    </div>
+
+    <div class="grid2">
+      <div class="kv">
+        <div class="k">当前文件夹</div>
+        <div class="v mono" id="shareFolder">—</div>
+      </div>
+      <div class="kv">
+        <div class="k">文件浏览地址</div>
+        <div class="v mono" id="shareLink">—</div>
+      </div>
+    </div>
+
+    <div class="url-list" id="shareUrls"></div>
+
+    <div class="btn-row">
+      <button class="btn primary write-only" id="btnPickFolder" type="button">选择文件夹…</button>
+      <button class="btn write-only" id="btnOpenFolder" type="button">在资源管理器中打开</button>
+      <a class="btn" id="btnGotoFiles" href="/files/" target="_blank" rel="noopener">打开文件浏览页</a>
+      <button class="btn danger write-only" id="btnClearShare" type="button">停止共享</button>
+    </div>
+
+    <div class="inline-form" style="margin-top:14px">
+      <div class="field grow">
+        <label for="sharePath">也可以用绝对路径直接指定</label>
+        <input type="text" id="sharePath" class="write-only" placeholder="D:\共享资料">
+      </div>
+      <button class="btn write-only" id="btnSharePath" type="button">使用这个文件夹</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>设置</h2>
+    <div class="sub">端口、监听地址改动后会自动重启服务；重启后请在浏览器里用新地址重新打开控制台。</div>
+
+    <div class="grid3">
+      <div class="field">
+        <label for="setPort">控制台端口</label>
+        <input type="number" id="setPort" min="1" max="65535" class="write-only">
+      </div>
+      <div class="field">
+        <label for="setSitePort">投放端口</label>
+        <input type="number" id="setSitePort" min="1" max="65535" class="write-only">
+      </div>
+      <div class="field">
+        <label for="setHost">监听地址</label>
+        <select id="setHost" class="write-only">
+          <option value="0.0.0.0">0.0.0.0（整个局域网都能访问）</option>
+          <option value="127.0.0.1">127.0.0.1（只有本机能访问）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="setTitle">页面标题</label>
+        <input type="text" id="setTitle" maxlength="60" class="write-only">
+      </div>
+      <div class="field">
+        <label for="setLimit">单次上传上限（MB）</label>
+        <input type="number" id="setLimit" min="1" max="20480" class="write-only">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary write-only" id="btnSaveSettings" type="button">保存并重启</button>
+      <button class="btn write-only" id="btnRestart" type="button">仅重启服务</button>
+      <button class="btn danger write-only" id="btnShutdown" type="button">退出 minilist</button>
+    </div>
+    <div class="hint" id="settingsHint"></div>
+  </section>
+
+  <section class="card">
+    <h2>账号</h2>
+    <div class="sub">登录后才能修改内容。所有写操作都会校验登录状态和一次性会话令牌。</div>
+    <div id="accountBody"></div>
+  </section>
+
+  <footer class="foot">
+    <span>minilist · 本地局域网文件与页面投放工具</span>
+    <span id="footStat"></span>
+  </footer>
+
+</main>
+
+<input type="file" id="htmlFileInput" accept=".html,.htm,.xhtml,text/html" hidden>
+<div id="toasts" class="toasts"></div>
+
+<script src="/__ml/ui.js"></script>
+<script src="/admin/console.js"></script>
+</body>
+</html>

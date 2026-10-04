@@ -1,0 +1,13 @@
+# 统一换行符，避免 Windows/Linux 之间反复整文件 diff
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF，否则某些情况下会解析出错
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# 二进制
+*.exe binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.zip binary

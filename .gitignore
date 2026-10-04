@@ -1,0 +1,23 @@
+# minilist 运行数据（含口令哈希与上传存档），绝对不要提交
+data/
+content/
+
+# 打包产物
+dist/
+
+# 依赖与日志
+node_modules/
+npm-debug.log*
+*.log
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.tmp
+*.bak
+.shots/

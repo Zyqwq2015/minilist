@@ -1,0 +1,71 @@
+/* minilist 控制台页面样式 */
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.url-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.url-list:empty {
+  display: none;
+}
+
+.url-list .url-row .small {
+  min-width: 76px;
+}
+
+.wrap .notice code {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+#accountBody .grid2 {
+  margin-bottom: 4px;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted-2);
+  font-size: 12px;
+  padding: 4px 2px 20px;
+}
+
+.offline .status-dot {
+  background: var(--danger);
+  box-shadow: 0 0 0 3px var(--danger-soft);
+}
+
+#shareLink {
+  cursor: pointer;
+}
+
+.hint code {
+  font-family: var(--mono);
+  background: var(--panel-3);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.login-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--panel-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}

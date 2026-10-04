@@ -1,0 +1,61 @@
+{
+  "name": "minilist",
+  "version": "1.0.0",
+  "private": true,
+  "description": "minilist —— 把选中的 HTML 投放到局域网端口，并展示指定文件夹的文件；支持上传/下载/修改，登录后可写，未登录只读。纯黑白界面，零第三方依赖。",
+  "main": "src/launch.js",
+  "bin": {
+    "minilist": "src/launch.js"
+  },
+  "scripts": {
+    "start": "node src/launch.js",
+    "test": "node test/selftest.js",
+    "build:exe": "node tools/build-exe.js"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*"
+    ],
+    "targets": [
+      "node20-win-x64"
+    ],
+    "outputPath": "dist"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "lan",
+    "file-server",
+    "file-browser",
+    "html",
+    "publish",
+    "readonly",
+    "login",
+    "no-dependencies",
+    "monochrome",
+    "ai-generated"
+  ],
+  "author": "朝暮枝枝 <https://github.com/Zyqwq2015>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zyqwq2015/minilist.git"
+  },
+  "homepage": "https://github.com/Zyqwq2015/minilist#readme",
+  "bugs": {
+    "url": "https://github.com/Zyqwq2015/minilist/issues"
+  },
+  "aiGenerated": {
+    "disclosure": "本项目全部代码、界面、测试与文档由 AI 编程智能体生成",
+    "provider": "DeepSeek",
+    "models": [
+      "deepseek-flash",
+      "DeepSeek-V4.1-Flash"
+    ],
+    "harness": "DeepSeek Harness",
+    "date": "2026-10",
+    "humanRole": "提出需求、确认设计取舍、验收结果",
+    "details": "https://github.com/Zyqwq2015/minilist#关于这个项目的作者"
+  }
+}
