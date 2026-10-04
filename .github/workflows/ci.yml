@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  selftest:
+    name: 自检 · ${{ matrix.os }} · Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: 18
+          - os: ubuntu-latest
+            node: 22
+          - os: windows-latest
+            node: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # 端到端自检：会在临时目录造数据、用随机端口把整套服务跑起来，
+      # 覆盖 投放 / 只读拦截 / 登录 / CSRF / 上传 / 编辑 / 删除 / 打包 /
+      # 路径穿越 / 跨端口越权 共 41 项。
+      - name: 跑自检
+        run: node test/selftest.js
+
+  build-exe:
+    name: 打包 Windows exe
+    runs-on: windows-latest
+    needs: selftest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 打包
+        run: node tools/build-exe.js
+      - name: 上传产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: minilist-windows-x64
+          path: dist/minilist.exe
+          if-no-files-found: error
