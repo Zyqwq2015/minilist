@@ -1,6 +1,5 @@
 # minilist
 
-[![AI 生成 · DeepSeek](https://img.shields.io/badge/%F0%9F%A4%96%20AI%20%E7%94%9F%E6%88%90-DeepSeek-000000?style=flat-square)](#关于这个项目的作者)
 [![CI](https://github.com/Zyqwq2015/minilist/actions/workflows/ci.yml/badge.svg)](https://github.com/Zyqwq2015/minilist/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-000000?style=flat-square)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D16-000000?style=flat-square)](package.json)
@@ -12,11 +11,6 @@
 界面是**严格纯黑白**的（只有 `#000` 和 `#fff`，没有灰色和彩色），打开就是一个独立的应用窗口，不是黑乎乎的命令行。
 
 零第三方依赖，只需要 Node.js 16 以上；也可以一键**打包成单个 exe**，目标机器免装 Node、双击即用、不会弹命令行窗口。
-
-> ### 🤖 这是 AI 写的项目
->
-> 全部代码、界面、测试和文档由 **DeepSeek** 的编程智能体自动生成，人类只负责提需求和验收。
-> 详细说明见 **[关于这个项目的作者](#关于这个项目的作者)**。
 
 ![控制台](docs/console.png)
 
