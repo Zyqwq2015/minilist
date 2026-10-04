@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -24,8 +24,8 @@ jobs:
           - os: windows-latest
             node: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node }}
       # 端到端自检：会在临时目录造数据、用随机端口把整套服务跑起来，
@@ -39,14 +39,14 @@ jobs:
     runs-on: windows-latest
     needs: selftest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
       - name: 打包
         run: node tools/build-exe.js
       - name: 上传产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: minilist-windows-x64
           path: dist/minilist.exe
