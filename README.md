@@ -25,6 +25,15 @@
 
 ## 一、快速开始（Windows）
 
+### 方式 A：直接下载打包好的 exe（免装 Node）
+
+> **[⬇ 下载 minilist.exe](https://github.com/Zyqwq2015/minilist/releases/latest/download/minilist.exe)** —— 约 36 MB，双击即用，
+> 不会出现命令行窗口，目标机器不需要装 Node.js。
+
+第一次运行 Windows 可能弹 SmartScreen，点 **「更多信息」→「仍要运行」**（没有代码签名证书）。
+
+### 方式 B：从源码跑（需要 Node.js 16+）
+
 1. 双击 **`启动minilist.cmd`**（或 `minilist.cmd`）。
 2. 会自动打开 minilist 应用窗口（纯黑白界面）。
 3. 在「投放 HTML 到局域网端口」卡片里点 **「选择 HTML 文件…」**，在弹出的系统窗口里挑一个 `.html` 文件。
